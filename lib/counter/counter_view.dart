@@ -12,6 +12,8 @@ Counter view - responsible for UI
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart'; //import lottie for animations
+
 
 import 'counter_cubit.dart';
 
@@ -100,7 +102,16 @@ class _CounterViewState extends State<CounterView> {
                             });
                             if (value == true) {
                               context.read<CounterCubit>().increment();
-                              _checkboxes.removeAt(index);
+                              Center( //shows the lottie animation in the center of the screen
+                                  child: Lottie.asset('assets/bin.json')
+                              );
+                              Future.delayed(const Duration(seconds: 1), () { //delays for one second - then removes the checkbox - allows the animation to be played
+                                Navigator.pop(context);
+                                setState(() {
+                                  _checkboxes.removeAt(index);
+                                });
+                              });
+
                             } else {
                               context
                                   .read<CounterCubit>()
