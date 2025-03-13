@@ -102,15 +102,25 @@ class _CounterViewState extends State<CounterView> {
                             });
                             if (value == true) {
                               context.read<CounterCubit>().increment();
-                              Center( //shows the lottie animation in the center of the screen
-                                  child: Lottie.asset('assets/bin.json')
+                              showDialog(
+                                context: context,
+                                barrierDismissible: false, // Prevent user from dismissing animation early
+                                builder: (BuildContext context) {
+                                  Future.delayed(const Duration(seconds: 1), () { //delay the closing of the dialog
+                                    Navigator.pop(context); // Close animation dialog
+                                    setState(() {
+                                      _checkboxes.removeAt(index); //remove the checked checkbox
+                                    });
+                                  });
+
+                                  return Dialog(
+                                    backgroundColor: Colors.transparent, //shows the lottie animation
+                                    child: Center(
+                                      child: Lottie.asset('assets/bin.json'),
+                                    ),
+                                  );
+                                },
                               );
-                              Future.delayed(const Duration(seconds: 1), () { //delays for one second - then removes the checkbox - allows the animation to be played
-                                Navigator.pop(context);
-                                setState(() {
-                                  _checkboxes.removeAt(index);
-                                });
-                              });
 
                             } else {
                               context
