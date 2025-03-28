@@ -115,8 +115,12 @@ class _CounterViewState extends State<CounterView> {
 
                                   return Dialog(
                                     backgroundColor: Colors.transparent, //shows the lottie animation
+                                    elevation: 0,
                                     child: Center(
-                                      child: Lottie.asset('assets/bin.json'),
+                                      child: Lottie.asset('assets/bin.json',
+                                      width: 200,
+                                        height: 200
+                                      ),
                                     ),
                                   );
                                 },
